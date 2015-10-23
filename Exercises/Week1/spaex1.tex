@@ -18,10 +18,26 @@
 \begin{enumerate}[label=(\alph*)]
 \item average time complexity $\mathcal{O}(n \log n)$
 \item expected time complexity $\mathcal{O}(n \log n)$
-\item worst case time complexity $\mathcal{O}(n \log n)$
+\item worst case time complexity $\mathcal{O}(n \log n)$.
 \end{enumerate}
 \color{black}
 
 \subsection*{Solution}
-\subsubsection*{(a)}fds
+\subsubsection*{(a)} Whenever we are dealing with an \textbf{average} time complexity, the assumption is that the algorithm is \textbf{not} random. Basically, we assume that every input is equally likely and we compute the average time complexity simply by summing all running times over all inputs and by dividing by the number of inputs; the same way as an average is computed.
+
+In order to achieve an average time complexity $\mathcal{O}(n \log n)$ for the quicksort, whenever calling the actual quicksort routine with a particular range to sort, we could program it to choose, say, three pivots: one from the beginning of the input range, one from the end of the input range and one from the middle of the input range. After that, use the pivot that is second largest.
+
+\subsubsection*{(b)} Whenever talking about \textbf{expected} time complexity, the assumption is that the algorithm is \textbf{randomized}, i.e, it relies on a pseudorandom number generator in order to make decisions.
+
+We can guarantee an expected time complexity $\mathcal{O}(n \log n)$ if we choose pivot/pivots randomly.
+
+\subsubsection*{(c)} In order to quarantee the \textbf{worst case} time complexity $\mathcal{O}(n \log n)$ for a quicksort implementation, I see no other possibility but using \textbf{Introsort}: use a quicksort with arbitrary pivot selection scheme, but keep track how deep in the recursion we get; if we exceed some precomputed depth, sort the range using \textbf{heapsort}, which guarantees the worst case time complexity of $\mathcal{O}(n \log n)$.
+
+\section*{Exercise 2}
+\color{blue} A full binary tree is a binary tree where every node is either a leaf or has two children. Show that every full binary tree with $n$ leaves has exactly $2n - 1$ nodes. \textit{Hint: Use induction.}
+\color{black}
+
+\subsection*{Solution}
+\textbf{The base case:} Suppose $n = 1$. The only possibility is that the leaf node is, in fact, the only node of the tree: $2n - 1 = 2 - 1$. \\
+\textbf{Induction step:} Suppose that the property holds for general $n > 1$.
 \end{document}
