@@ -38,6 +38,14 @@ We can guarantee an expected time complexity $\mathcal{O}(n \log n)$ if we choos
 \color{black}
 
 \subsection*{Solution}
-\textbf{The base case:} Suppose $n = 1$. The only possibility is that the leaf node is, in fact, the only node of the tree: $2n - 1 = 2 - 1$. \\
-\textbf{Induction step:} Suppose that the property holds for general $n > 1$.
+\textbf{The base case:} Suppose $n = 1$. The only possibility is that the leaf node is, in fact, the only node of the tree: $2n - 1 = 2 - 1 = 1$. \\
+Now, the formula tells us that adding a new node (call it $u$) to the tree (such that the tree remains a full binary tree) introduces two nodes: $u$ itself and some node (call it $v$) that makes sure that the binary tree remains full. We have three cases:
+\begin{enumerate}[label=(\Roman*)]
+\item Adding the new node to a leaf of the tree.
+\item Replacing an internal (that is, non-leaf) node with a new node.
+\end{enumerate}
+
+\subsubsection*{Case I} Choose a leaf node $l$ of the tree. Attach $u$ to it. Now the tree is not full because $l$ has only one child ($u$). In order to fix the full binary tree invariant, we add $v$ as the other child of $l$. Now the tree is a full binary tree, and its number of nodes increased by 2.
+
+\subsubsection*{Case II} Choose a non-leaf node (call it $x$). Substitute $x$ with $u$ and attach $x$ as one of the children of $u$. At this point $u$ has only one child; add $v$ as the other child, which makes the binary tree full.
 \end{document}
