@@ -56,4 +56,27 @@ Now, the formula tells us that adding a new node (call it $u$) to the tree (such
 \end{center}
 Now by induction principle, the proof is complete.
 
+\section*{Exercise 3}
+\color{blue} Transform the following nondeterministic finite automaton into a deterministic finite automaton.
+\begin{center}
+\includegraphics[scale=0.7]{Exercise3NFA}
+\end{center}
+\color{black}
+\subsection*{Solution}
+The initial state is $A$, so in the result DFA the initial state is $E(\{ A \}) = \{ A, B, D \}$.
+\subsubsection*{$\{A, B, D\}$}
+\begin{align*}
+\delta'( \{ A, B, D \}, 0 ) &= E( \{ C \} ) = \{ C \} \\
+\delta'( \{ A, B, D \}, 1 ) &= E( \{ A, B \}) = \{ A, B, D \}
+\end{align*}
+\subsubsection*{$\{ C \}$}
+\begin{align*}
+\delta'( \{ C \}, 0 ) &= E( \{ D \} ) = \{ B, D \} \\
+\delta'( \{ C \}, 1 ) &= E( \emptyset ) = \emptyset
+\end{align*}
+\subsubsection*{$\{ B, D \}$}
+\begin{align*}
+\delta'( \{ B, D \}, 0 ) &= E( \{ C \} ) = \{ C \} \\
+\delta'( \{ B, D \}, 1 ) &= E( \{ A \} ) = \{ A, B, D \}
+\end{align*}
 \end{document}
