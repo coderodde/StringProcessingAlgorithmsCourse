@@ -2,4 +2,4 @@
 *.log
 *.synctex.gz
 .DS_Store
-/Exercises/Week1/Week1Exercise5Fibonacci/target/
+target
