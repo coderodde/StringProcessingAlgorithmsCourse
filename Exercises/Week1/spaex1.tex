@@ -39,13 +39,21 @@ We can guarantee an expected time complexity $\mathcal{O}(n \log n)$ if we choos
 
 \subsection*{Solution}
 \textbf{The base case:} Suppose $n = 1$. The only possibility is that the leaf node is, in fact, the only node of the tree: $2n - 1 = 2 - 1 = 1$. \\
-Now, the formula tells us that adding a new node (call it $u$) to the tree (such that the tree remains a full binary tree) introduces two nodes: $u$ itself and some node (call it $v$) that makes sure that the binary tree remains full. We have three cases:
+Now, the formula tells us that adding a new node (call it $u$) to the tree (such that the tree remains a full binary tree) introduces two nodes: $u$ itself and some node (call it $v$) that makes sure that the binary tree remains full. We have two cases:
 \begin{enumerate}[label=(\Roman*)]
 \item Adding the new node to a leaf of the tree.
-\item Replacing an internal (that is, non-leaf) node with a new node.
+\item Replacing a node with a new node.
 \end{enumerate}
 
-\subsubsection*{Case I} Choose a leaf node $l$ of the tree. Attach $u$ to it. Now the tree is not full because $l$ has only one child ($u$). In order to fix the full binary tree invariant, we add $v$ as the other child of $l$. Now the tree is a full binary tree, and its number of nodes increased by 2.
+\subsubsection*{Case I} Choose a leaf node $x$ of the tree. Attach $u$ to it. Now the tree is not full because $x$ has only one child ($u$). In order to fix the full binary tree invariant, we add $v$ as the other child of $x$. Now the tree is a full binary tree. Note that $x$ is no longer a leaf node, but the tree received two new leaf nodes, so the amount of leaves increased by one, and the amount of all nodes of the tree increased by two nodes.
+\begin{center}
+\includegraphics[scale=0.3]{FullBinaryTreeCaseI}
+\end{center}
 
-\subsubsection*{Case II} Choose a non-leaf node (call it $x$). Substitute $x$ with $u$ and attach $x$ as one of the children of $u$. At this point $u$ has only one child; add $v$ as the other child, which makes the binary tree full.
+\subsubsection*{Case II} Choose an arbitrary node $x$. Substitute $x$ with $u$ and attach $x$ as one of the children of $u$. At this point $u$ has only one child; add $v$ as the other child, which makes the binary tree full. The amount of leaves increased by one and amount of nodes increased by two as expected.
+\begin{center}
+\includegraphics[scale=0.3]{FullBinaryTreeCaseII}
+\end{center}
+Now by induction principle, the proof is complete.
+
 \end{document}

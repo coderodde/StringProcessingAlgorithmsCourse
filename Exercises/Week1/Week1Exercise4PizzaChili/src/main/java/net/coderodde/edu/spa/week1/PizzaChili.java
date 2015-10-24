@@ -53,6 +53,11 @@ public class PizzaChili {
         // Build the histogram.
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+            
             String[] words = line.split("(\\s|\\p{Punct})+");
             
             for (String word : words) {
