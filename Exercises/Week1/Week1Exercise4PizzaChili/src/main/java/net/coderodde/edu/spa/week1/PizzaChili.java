@@ -74,7 +74,7 @@ public class PizzaChili {
         List<String> allWordList = new ArrayList<>(map.keySet());
         
         Collections.sort(allWordList, (String a, String b) -> {
-            return Integer.compare(map.get(b), map.get(a));
+            return -Integer.compare(map.get(b), map.get(a));
         });
         
         ret.addAll(allWordList.subList(0, 

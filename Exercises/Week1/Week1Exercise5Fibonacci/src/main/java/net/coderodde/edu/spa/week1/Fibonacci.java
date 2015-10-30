@@ -26,7 +26,6 @@ public class Fibonacci {
                     return 0L;
                     
                 case 1:
-                case 2:
                     return 1L;
             }
             
@@ -51,14 +50,14 @@ public class Fibonacci {
         int N = 43;
         
         long startTime = System.currentTimeMillis();
-        long result = BruteForce.fibonacci(N);
+//        long result = BruteForce.fibonacci(N);
         long endTime = System.currentTimeMillis();
         
-        System.out.println("Bruteforce fib(" + N + ") = " + result + " in " +
-                           (endTime - startTime) + " milliseconds.");
+//        System.out.println("Bruteforce fib(" + N + ") = " + result + " in " +
+//                           (endTime - startTime) + " milliseconds.");
         
         startTime = System.currentTimeMillis();
-        result = DynamicProgramming.fibonacci(N);
+        long result = DynamicProgramming.fibonacci(65);
         endTime = System.currentTimeMillis();
         
         System.out.println("Dynamic programming fib(" + N + ") = " + result + 
