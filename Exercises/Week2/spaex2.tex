@@ -112,4 +112,25 @@ Because by distance lemma for any $j = 1, 2, \dots, i - 2$, $lcp(S_j, S_i)$ cann
 lcp(S_i, \{ S_1, \dots, S_{i - 1} \}) = lcp(S_i, S_{i - 1}) = LCP_{\mathcal{R}}[i],
 \] 
 as expected.
+
+\subsubsection*{(b)}
+\begin{align*}
+\Sigma lcp(\mathcal{R}) &= \sum_{S \in \mathcal{R}} lcp(S, \mathcal{R} \ \{ S \}) \\
+									  &\leq \sum_{i \in [1 .. n - 1]} lcp(S_i, S_{i + 1}) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) &\text{\quad (by distance lemma)} \\
+									  &= \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
+									  &= 2 \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
+									  &= 2 \sum_{i \in [2 .. n]} LCP_{\mathcal{R}}[i] \\
+									  &= 2 \sum_{i \in [1 .. n]} LCP_{\mathcal{R}}[i] & \text{\quad (since } LCP_{\mathcal{R}}[1] = 0) \\
+									  &= 2 \cdot \Sigma LCP(\mathcal{R}).
+\end{align*}
+What comes to the lower bound of $\Sigma lcp(\mathcal{R})$, we have
+\begin{align*}
+\Sigma lcp(\mathcal{R}) &= lcp(S_1, S_2) + lcp(S_{n - 1}, S_n) \\
+ 									  &+ \sum_{i \in [2 .. n - 1]} \max \{ lcp(S_i, S_{i - 1}), lcp(S_i, S_{i + 1}) \} &\text{\quad (by distance lemma)} \\
+    								  &\geq \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
+    								  &= \sum_{i \in [2 .. n]} LCP_{\mathcal{R}}[i] \\
+    								  &= \sum_{i \in [1 .. n]} LCP_{\mathcal{R}}[i] & \text{\quad (since} LCP_{\mathcal{R}}[1] = 0) \\
+    								  &= \Sigma LCP(\mathcal{R}),
+\end{align*}
+which concludes the proof.
 \end{document}
