@@ -129,8 +129,22 @@ What comes to the lower bound of $\Sigma lcp(\mathcal{R})$, we have
  									  &+ \sum_{i \in [2 .. n - 1]} \max \{ lcp(S_i, S_{i - 1}), lcp(S_i, S_{i + 1}) \} &\text{\quad (by distance lemma)} \\
     								  &\geq \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
     								  &= \sum_{i \in [2 .. n]} LCP_{\mathcal{R}}[i] \\
-    								  &= \sum_{i \in [1 .. n]} LCP_{\mathcal{R}}[i] & \text{\quad (since} LCP_{\mathcal{R}}[1] = 0) \\
+    								  &= \sum_{i \in [1 .. n]} LCP_{\mathcal{R}}[i] & \text{\quad (since } LCP_{\mathcal{R}}[1] = 0) \\
     								  &= \Sigma LCP(\mathcal{R}),
 \end{align*}
 which concludes the proof.
+
+\subsubsection*{Example:}
+\begin{tabular}{|c|c|c|}
+\hline
+$\mathcal{R}$ & $LCP_{\mathcal{R}}$ & $lcp(S, \mathcal{R})$ \\
+\hline
+aaaa & 0 & 3 \\
+aaab & 3 & 3 \\
+abba & 1 & 1 \\
+baab & 0 & 0 \\
+\hline
+$\sum$ & 4 & 7 \\
+\hline
+\end{tabular}
 \end{document}
