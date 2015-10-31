@@ -115,7 +115,7 @@ as expected.
 
 \subsubsection*{(b)}
 \begin{align*}
-\Sigma lcp(\mathcal{R}) &= \sum_{S \in \mathcal{R}} lcp(S, \mathcal{R} \ \{ S \}) \\
+\Sigma lcp(\mathcal{R}) &= \sum_{S \in \mathcal{R}} lcp(S, \mathcal{R} \setminus \{ S \}) \\
 									  &\leq \sum_{i \in [1 .. n - 1]} lcp(S_i, S_{i + 1}) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) &\text{\quad (by distance lemma)} \\
 									  &= \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
 									  &= 2 \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
