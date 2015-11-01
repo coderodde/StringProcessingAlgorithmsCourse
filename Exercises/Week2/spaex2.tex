@@ -73,6 +73,30 @@ $L_{\mu} = 0$ \\
 \end{center}
 
 \section*{Exercise 3}
+\color{blue}
+What is the time complexity of prefix queries for 
+\begin{enumerate}[label=(\alph*)]
+\item trie with constant alphabet
+\item compact trie with constant alphabet
+\item compact trie with ordered alphabet and binary tree implementation of the child function
+\item balanced compact ternary trie?
+\end{enumerate}
+The queries should return the resulting strings as a list of pointers or other identifiers rather than the full strings.
+\color{black}
+
+\subsection*{Solution}
+
+\subsection*{(a)}
+Assuming a hash table implementation for the child function, the complexity is $\mathcal{O}(p + \mathcal{R})$, where $p$ is the length of the prefix and $\mathcal{R}$ is the amount of distinct strings sharing the prefix.
+
+\subsection*{(b)}
+In the worst case, asymptotically no faster than $\mathcal{O}(p + \mathcal{R})$ as above.
+
+\subsection*{(c)}
+$\mathcal{O}((p + \mathcal{R}) \log n)$.
+
+\subsection*{(d)}
+$\mathcal{O}(p + \mathcal{R})$.
 
 \section*{Exercise 4}
 \color{blue}
@@ -178,6 +202,6 @@ $i$ & $S_i$ & $LCP_{\mathcal{R}}[i]$ \\
 \hline
 \end{tabular}
 \end{center}
-It would seem that the algorithm must keep track of the last added edge/node. If the current LCP value ($l_i = LCP_{\mathcal{R}}[i]$)  is no less than the previous one ($l_{i - 1} = LCP_{\mathcal{R}}[i - 1]$), take the last edge and split it after $l_i - l_{i - 1}$ characters into two edges: the left one completing the previously added string, and the right one completing current string. If, however, $l_i < l_{i - 1}$, we must restart from the root of the trie.
+It would seem that the algorithm must keep track of the last added edge. If the current LCP value ($l_i = LCP_{\mathcal{R}}[i]$)  is no less than the previous one ($l_{i - 1} = LCP_{\mathcal{R}}[i - 1]$), take the last created edge and split it after $l_i - l_{i - 1}$ characters into two edges: the left one completing the previously added string, and the right one completing current string. Set the right edge as the last one. If, however, $l_i < l_{i - 1}$, we must restart from the root of the trie.
 
 \end{document}
