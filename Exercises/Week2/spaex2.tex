@@ -86,7 +86,7 @@ Prove
 
 \subsubsection*{(a)}
 We need an auxiliary lemma first: 
-\begin{lemma}[Distance lemma]
+\begin{lemma}[Neighborhood lemma]
 If $S_1 < S_2 < S_3$, $lcp(S_1, S_3) \leq lcp(S_2, S_3)$.
 \end{lemma}
 \begin{proof}
@@ -97,28 +97,28 @@ S_1 &= a_1 a_2 \dots a_{l_{23}} \dots a_{l_{13}} b_1 b_2 \dots, \\
 S_2 &= a_1 a_2 \dots a_{l_{23}} c_1 c_2 \dots, \\
 S_3 &= a_1 a_2 \dots a_{l_{23}} \dots a_{l_{13}} d_1 d_2 \dots.
 \end{align*}
-Since $c_1 > a_{l_{23} + 1}$, we must have also $S_2 > S_3$, which is a contradiction.
+Since $S_1 < S_2$, $c_1 > a_{l_{23} + 1}$ and we must also have that $S_2 > S_3$, which is a contradiction. Analogous proof can be used to deduce that $lcp(S_1, S_3) \leq lcp(S_1, S_2)$.
 \end{proof}
 \subsubsection*{Example:}
 \begin{align*}
 S_1: & aaaab \\
 S_2: & aaaba \\
-S_3: & aaabc
+S_3: & aabba
 \end{align*}
 Now assume that $i \in [2...n]$. We have that
 \begin{align*}
-lcp(S_i, \{ S_1, \dots, S_{i - 1} \}) &= \max \{ lcp(S_i, S_{i - 1}), lcp(S_i, \{ S_1, \dots, S_{i - 2} \}) \}.
+lcp(S_i, \{ S_1, \dots, S_{i - 1} \}) &= \max \{ lcp(S_i, S_{i - 1}), \; lcp(S_i, \{ S_1, \dots, S_{i - 2} \}) \}.
 \end{align*}
-Because by distance lemma for any $j = 1, 2, \dots, i - 2$, $lcp(S_j, S_i)$ cannot exceed $lcp(S_i, S_{i - 1})$, we must have that 
+By neighborhood lemma, for any $j = 1, 2, \dots, i - 2$, $lcp(S_i, S_j)$ cannot exceed $lcp(S_i, S_{i - 1})$ and we must have that 
 \[
 lcp(S_i, \{ S_1, \dots, S_{i - 1} \}) = lcp(S_i, S_{i - 1}) = LCP_{\mathcal{R}}[i],
 \] 
-as expected.
+as expected. 
 
 \subsubsection*{(b)}
 \begin{align*}
 \Sigma lcp(\mathcal{R}) &= \sum_{S \in \mathcal{R}} lcp(S, \mathcal{R} \setminus \{ S \}) \\
-									  &\leq \sum_{i \in [1 .. n - 1]} lcp(S_i, S_{i + 1}) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) &\text{\quad (by distance lemma)} \\
+									  &\leq \sum_{i \in [1 .. n - 1]} lcp(S_i, S_{i + 1}) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) &\text{\quad (by neighborhood lemma)} \\
 									  &= \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) + \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
 									  &= 2 \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
 									  &= 2 \sum_{i \in [2 .. n]} LCP_{\mathcal{R}}[i] \\
@@ -128,7 +128,7 @@ as expected.
 What comes to the lower bound of $\Sigma lcp(\mathcal{R})$, we have
 \begin{align*}
 \Sigma lcp(\mathcal{R}) &= lcp(S_1, S_2) + lcp(S_{n - 1}, S_n) \\
- 									  &+ \sum_{i \in [2 .. n - 1]} \max \{ lcp(S_i, S_{i - 1}), lcp(S_i, S_{i + 1}) \} &\text{\quad (by distance lemma)} \\
+ 									  &+ \sum_{i \in [2 .. n - 1]} \max \{ lcp(S_i, S_{i - 1}), lcp(S_i, S_{i + 1}) \} &\text{\quad (by neighborhood lemma)} \\
     								  &\geq \sum_{i \in [2 .. n]} lcp(S_{i - 1}, S_i) \\
     								  &= \sum_{i \in [2 .. n]} LCP_{\mathcal{R}}[i] \\
     								  &= \sum_{i \in [1 .. n]} LCP_{\mathcal{R}}[i] & \text{\quad (since } LCP_{\mathcal{R}}[1] = 0) \\
@@ -149,4 +149,35 @@ baab & 0 & 0 \\
 $\sum$ & 4 & 7 \\
 \hline
 \end{tabular}
+
+\section*{Exercise 5}
+\color{blue} Show how to construct the compact trie for a set $\mathcal{R}$ in $\mathcal{O}(|\mathcal{R}|)$ time (rather than $\mathcal{O}(||\mathcal{R}||)$ time) given the string set $\mathcal{R}$ in lexicographic order and the LCP array $LCP_{\mathcal{R}}$.
+\color{black}
+
+\subsection*{Solution}
+
+\begin{center}
+\includegraphics[scale=0.6]{W2E5_1}
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.6]{W2E5_2}
+\end{center}
+
+The LCP array is
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$i$ & $S_i$ & $LCP_{\mathcal{R}}[i]$ \\
+\hline 
+1 & $aaaaa$ & 0 \\
+2 & $aaaba$ & 3 \\
+3 & $aaabb$ & 4 \\
+4 & $ababb$ & 1 \\
+5 & $abbab$ & 2 \\
+\hline
+\end{tabular}
+\end{center}
+It would seem that the algorithm must keep track of the last added edge/node. If the current LCP value ($l_i = LCP_{\mathcal{R}}[i]$)  is no less than the previous one ($l_{i - 1} = LCP_{\mathcal{R}}[i - 1]$), take the last edge and split it after $l_i - l_{i - 1}$ characters into two edges: the left one completing the previously added string, and the right one completing current string. If, however, $l_i < l_{i - 1}$, we must restart from the root of the trie.
+
 \end{document}
