@@ -202,6 +202,6 @@ $i$ & $S_i$ & $LCP_{\mathcal{R}}[i]$ \\
 \hline
 \end{tabular}
 \end{center}
-It would seem that the algorithm must keep track of the last added edge. If the current LCP value ($l_i = LCP_{\mathcal{R}}[i]$)  is no less than the previous one ($l_{i - 1} = LCP_{\mathcal{R}}[i - 1]$), take the last created edge and split it after $l_i - l_{i - 1}$ characters into two edges: the left one completing the previously added string, and the right one completing current string. Set the right edge as the last one. If, however, $l_i < l_{i - 1}$, we must restart from the root of the trie.
+The algorithm must keep track of the last added edge. If the current LCP value ($l_i = LCP_{\mathcal{R}}[i]$)  is no less than the previous one ($l_{i - 1} = LCP_{\mathcal{R}}[i - 1]$), take the last created edge and split it after $l_i - l_{i - 1}$ characters into two edges: the left one completing the previously added string, and the right one completing current string. Set the right edge as the last one. If, however, $l_i < l_{i - 1}$, we must refer to the edge of the trie that leaves the root node. That ``root edge``must be split after $l_{i - 1} - l_i$ characters into two edges: the lexicographically lesser edge must be on the left of the parent edge and the lexicographically greater edge on the right; also mark the right edge as last.
 
 \end{document}

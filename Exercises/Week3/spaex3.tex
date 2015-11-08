@@ -1,0 +1,70 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts,amsmath,amssymb,amsthm,booktabs,color,graphicx}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{enumitem}
+
+\title{String Processing Algorithms 2015 - Week 3 Exercises}
+\author{Rodion Efremov}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+\color{blue}
+Describe how to modify the LSD radix sort algorithm to handle strings of varying length. The time complexity should be the one given in Theorem 1.27.
+\color{black}
+
+\subsection*{Solution}
+The time complexity mentioned in the Theorem 1.27 is $\mathcal{O}(||\mathcal{R}|| + m\sigma)$. All we need to do is to modify the \textsc{Counting-Sort} procedure:
+
+\begin{algorithm}
+\SetKw{KwLet}{let}
+\SetKw{KwEmptyMap}{be an empty map}
+\SetKw{KwNil}{nil}
+\SetKw{KwNotMapped}{is not mapped in}
+
+\For{$i = 0$ \KwTo $\sigma - 1$}{
+  $C[i] = 0$ \\
+}
+$s = 0$ \\
+\For{$i = 1$ \KwTo $n$}{
+  \If{$|S_i| < \ell$}{
+    $s = s + 1$ \\  
+  }
+  \Else{
+    $C[S_i[\ell]] = C[S_i[\ell]] + 1$ \\
+  }
+}
+$sum = s$ \\
+\For{$i = 0$ \KwTo $\sigma - 1$}{
+  $tmp = C[i]$ \\
+  $C[i] = sum$ \\
+  $sum = sum + tmp$ \\
+}
+$p = 0$ \\
+\For{$i = 1$ \KwTo $n$}{
+  \If{$|S_i| < \ell$}{
+     $J[p] = S_i$ \\
+     $p = p + 1$ \\
+  } 
+  \Else{
+    $J[C[S_i[\ell]]] = S_i$ \\
+    $C[S_i[\ell]] = C[S_i[\ell]] + 1$ \\
+  }
+}
+$\mathcal{R} = J$ \\
+\caption{\textsc{Counting-Sort}$(\mathcal{R} = \{ S_1, S_2, \dots, S_n \}, \ell)$}
+\end{algorithm}
+Now, the desired LSD radix sort for variable-length strings is
+\begin{algorithm}
+$m = \max_{i = 1, 2, \dots, n} \{ |S_i| \}$ \\
+\For{$\ell = m$ \KwTo $1$}{
+  \textsc{Counting-Sort}$(\mathcal{R}, \ell)$ \\
+}
+\caption{LSDRadixSort($\mathcal{R} = \{ S_1, S_2, \dots, S_n \}$)}
+\end{algorithm}
+\end{document}
