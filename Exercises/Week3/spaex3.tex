@@ -121,4 +121,41 @@ Suppose the sorted list of strings is
 \overbrace{aaa \dots aaa}^{m}a_n \rangle
 \end{align*}
 and the string to search for is $\overbrace{aaa \dots aaa}^{m}a'$, where $a' \neq a_i$ for any $i \in \{ 1, 2, \dots, m \}$ and $a_1 \leq  a_2 \leq \dots \leq a_n$. Now as there is no match, the binary search will do $\Omega(\log n)$ string comparisons, and as we assume the naïve implementation of the string comparison, each comparison will have to iterate through $m$ first characters $a$ before getting to the last character that fails the search, which leads to the worst case time complexity of $\Omega(m \log n)$.
+
+\section*{Exercise 4}
+\color{blue}
+Let $S[0..n)$ be a string over an integer alphabet. Show how to build a data structure in $\mathcal{O}(n)$ time and space so that afterwards the Karp-Rabin hash function $H(S[i..j))$ for the factor $S[i..j)$ can be computed in constant time for any $0 \leq i \leq j \leq n$.
+\color{black}
+
+\subsection*{Solution}
+The actual query routine follows
+\begin{algorithm}
+$l = j - i$ \\
+$f = F[l]$ \\
+$a = E[j]$ \\
+$b = E[i]$ \\
+$r = (a - bf) \mod q$ \\
+\If{$r < 0$}{
+  \KwRet $r + q$ \\
+}
+\KwRet $r$ \\
+\caption{\textsc{Query}$(E[0..n], F[0..n], i, j, q)$}
+\end{algorithm}
+The preprocessing step is
+\begin{algorithm}
+$E[0..n] = \overbrace{[0, 0, \dots, 0]}^{n + 1}$ \\
+$F[0..n] = \overbrace{[0, 0, \dots, 0]}^{n + 1}$ \\
+$m = 1$ \\
+\For{$i = 1$ \KwTo $n$}{
+  $E[i] =$ \textsc{Compute-Entry}$(S, i, m)$ \\
+  $m = m * r$ \\
+}
+$f = 1$ \\
+\For{$i = 0$ \KwTo $n$}{
+  $F[i] = f$ \\
+  $f = f * r$ \\
+}
+\KwRet $(E, F)$ \\
+\caption{\textsc{Preprocess}$(S[0..n), r, q)$}
+\end{algorithm}
 \end{document}
