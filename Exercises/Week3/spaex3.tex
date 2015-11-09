@@ -5,6 +5,7 @@
 \usepackage{amsfonts,amsmath,amssymb,amsthm,booktabs,color,graphicx}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage{enumitem}
+\usepackage{float}
 
 \title{String Processing Algorithms 2015 - Week 3 Exercises}
 \author{Rodion Efremov}
@@ -20,13 +21,9 @@ Describe how to modify the LSD radix sort algorithm to handle strings of varying
 
 \subsection*{Solution}
 The time complexity mentioned in the Theorem 1.27 is $\mathcal{O}(||\mathcal{R}|| + m\sigma)$. All we need to do is to modify the \textsc{Counting-Sort} procedure:
-
+%\begin{figure}
+%\begin{center}
 \begin{algorithm}
-\SetKw{KwLet}{let}
-\SetKw{KwEmptyMap}{be an empty map}
-\SetKw{KwNil}{nil}
-\SetKw{KwNotMapped}{is not mapped in}
-
 \For{$i = 0$ \KwTo $\sigma - 1$}{
   $C[i] = 0$ \\
 }
@@ -59,6 +56,9 @@ $p = 0$ \\
 $\mathcal{R} = J$ \\
 \caption{\textsc{Counting-Sort}$(\mathcal{R} = \{ S_1, S_2, \dots, S_n \}, \ell)$}
 \end{algorithm}
+%\end{center}
+%\end{figure}
+
 Now, the desired LSD radix sort for variable-length strings is
 \begin{algorithm}
 $m = \max_{i = 1, 2, \dots, n} \{ |S_i| \}$ \\
@@ -74,6 +74,7 @@ Use the lcp comparison technique to modify the standard insertion sort algorithm
 \color{black}
 
 \subsection*{Solution}
+
 \begin{algorithm}
 \SetKw{KwAnd}{and}
 \For{$i = 2$ \KwTo $n$}{
@@ -90,6 +91,7 @@ Use the lcp comparison technique to modify the standard insertion sort algorithm
 }
 \caption{\textsc{Insertionsort}$(\mathcal{R}, \text{LCP}_{\mathcal{R}})$}
 \end{algorithm}
+
 \subsubsection*{Why do we set LCP to zero?}
 Consider the following:
 \begin{center}
@@ -134,21 +136,24 @@ $l = j - i$ \\
 $f = F[l]$ \\
 $a = E[j]$ \\
 $b = E[i]$ \\
-$r = (a - bf) \mod q$ \\
+$r = (a - bf) \mod q $ \\
 \If{$r < 0$}{
   \KwRet $r + q$ \\
 }
+\Else{
 \KwRet $r$ \\
-\caption{\textsc{Query}$(E[0..n], F[0..n], i, j, q)$}
+}
+\caption{\textsc{Query}$(E, F, i, j, q)$}
 \end{algorithm}
 The preprocessing step is
 \begin{algorithm}
-$E[0..n] = \overbrace{[0, 0, \dots, 0]}^{n + 1}$ \\
-$F[0..n] = \overbrace{[0, 0, \dots, 0]}^{n + 1}$ \\
-$m = 1$ \\
+$E[0..n] = [0, 0, \dots, 0]$ \\
+$F[0..n] = [0, 0, \dots, 0]$ \\
+$h = 0$ \\
 \For{$i = 1$ \KwTo $n$}{
-  $E[i] =$ \textsc{Compute-Entry}$(S, i, m)$ \\
-  $m = m * r$ \\
+  $h = h \times r$ \\
+  $h = h + S[i - 1]$ \\
+  $E[i] = h$\\
 }
 $f = 1$ \\
 \For{$i = 0$ \KwTo $n$}{
@@ -156,6 +161,6 @@ $f = 1$ \\
   $f = f * r$ \\
 }
 \KwRet $(E, F)$ \\
-\caption{\textsc{Preprocess}$(S[0..n), r, q)$}
+\caption{\textsc{Preprocess}$(S[0..n), r)$}
 \end{algorithm}
 \end{document}
