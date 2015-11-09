@@ -190,4 +190,26 @@ $f = 1$ \\
 \KwRet $(E, F)$ \\
 \caption{\textsc{Preprocess}$(S[0..n), r)$}
 \end{algorithm}
+
+\section*{Exercise 5}
+\color{blue}
+$\Omega(\Sigma LCP(\mathcal{R}))$ is a lower bound for string sorting for any algorithm if characters can be accessed only one at a time. However, for a small alphabet, it is possible to pack several characters into one machine word. Then multiple characters can be accessed simultaneously and treated as if they were a single \textit{super-character}. For example, the string \texttt{abbaba} over the alphabet $\Sigma = \{ a, b\}$ can be thought of as the string $\{ ab, ba, ba\}$ over the alphabet $\Sigma^2$. Algorithms taking advantage of this are called \textit{super-alphabet} algorithms.
+
+\noindent Develop a super-alphabet version of MSD radix sort. What is the time complexity.
+\color{black}
+
+\subsubsection*{Solution}
+\begin{algorithm}
+\If{$|\mathcal{R}| < \sigma^2$}{
+  \KwRet \textsc{StringQuicksort}$(\mathcal{R}, \ell)$ \\
+}
+$\mathcal{R}_{\bot} = \{ S \in \mathcal{R} \colon |S| = \ell \}$ \\
+$\mathcal{R} = \mathcal{R} \setminus \mathcal{R}_{\bot}$ \\
+$(\mathcal{R}_{00}, \mathcal{R}_{01}, \dots, \mathcal{R}_{0,\sigma - 1}, \mathcal{R}_{10}, ..., \mathcal{R}_{\sigma - 1, \sigma - 1}) = \textsc{CountingSort}(\mathcal{R}, \ell)$ \\
+\For{$i = (00)$ \KwTo $(\sigma - 1, \sigma - 1)$}{
+	\textsc{MSDRadixSort}$(\mathcal{R}_i, \ell + 1)$ \\
+}
+\KwRet $\mathcal{R}_{\bot} \cdot \mathcal{R}_{00} \cdot \dots \cdot \mathcal{R}_{\sigma - 1, \sigma - 1}$ \\
+\caption{\textsc{MSDRadixSort}$(\mathcal{R}, \ell)$}
+\end{algorithm}
 \end{document}
