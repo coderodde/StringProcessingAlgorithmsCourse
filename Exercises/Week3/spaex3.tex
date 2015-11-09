@@ -130,6 +130,15 @@ Let $S[0..n)$ be a string over an integer alphabet. Show how to build a data str
 \color{black}
 
 \subsection*{Solution}
+We will need the following identity:
+\[
+H(B) = (H(AB) - H(A) \cdot r^{|B|}) \mod q,
+\]
+where
+\[
+H(S[0..n)) = \Bigg( \sum_{i = 0}^{n - 1} S[i] r^{n - 1 - i} \Bigg) \mod q.
+\]
+Since we store only the hash values of all the prefixes of the input integer string (and a matrix indexed by the starting and ending indices), we need an efficient way for finding hash values of the factors of the input integer string. If we want to ask for a hash value of a factor $B$, which is preceded by a factor $A$, we can compute efficiently $H(B)$ simply by looking up the hashes for $H(A)$ and $H(AB)$. Also we need to cache the values $1, r, r^2, \dots, r^n$.
 The actual query routine follows
 \begin{algorithm}
 $l = j - i$ \\
