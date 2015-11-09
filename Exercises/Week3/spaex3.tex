@@ -7,6 +7,8 @@
 \usepackage{enumitem}
 \usepackage{float}
 
+\newtheorem{mythm}{Theorem}
+
 \title{String Processing Algorithms 2015 - Week 3 Exercises}
 \author{Rodion Efremov}
 \date{\today}
@@ -139,6 +141,22 @@ where
 H(S[0..n)) = \Bigg( \sum_{i = 0}^{n - 1} S[i] r^{n - 1 - i} \Bigg) \mod q.
 \]
 Since we store only the hash values of all the prefixes of the input integer string (and a matrix indexed by the starting and ending indices), we need an efficient way for finding hash values of the factors of the input integer string. If we want to ask for a hash value of a factor $B$, which is preceded by a factor $A$, we can compute efficiently $H(B)$ simply by looking up the hashes for $H(A)$ and $H(AB)$. Also we need to cache the values $1, r, r^2, \dots, r^n$.
+
+Assuming $r = 37, q = 11$ and $S[0..5) = \langle 2, 1, 1, 4, 3 \rangle$, we consider all possible prefixes of $S$:
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+$i$ & $S[0..i)$ & $H(S[0..i))$ \\
+\hline
+0 & $ \varepsilon $ 								& 0 \\
+1 & $\langle 2 \rangle $ 					& 2 \\
+2 & $\langle 2, 1 \rangle $ 				& 9 \\
+3 & $\langle 2, 1, 1 \rangle $ 			& 4 \\
+4 & $\langle 2, 1, 1, 4 \rangle $ 		& 9 \\
+5 & $\langle 2, 1, 1, 4, 3 \rangle $ & 6\\
+\hline
+\end{tabular}
+\end{center}
 The actual query routine follows
 \begin{algorithm}
 $l = j - i$ \\
